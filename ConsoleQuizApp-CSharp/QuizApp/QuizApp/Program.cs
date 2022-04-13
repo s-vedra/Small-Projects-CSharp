@@ -4,22 +4,19 @@ using Services;
 
 
 
-Service service = new Service();
 while (true)
 {
     try
     {
         Console.Clear();
         Console.WriteLine("Hello user! Choose your role \n1.Teacher \n2.Student \n3.Exit", Console.ForegroundColor = ConsoleColor.White);
-        int choice = service.Parsing(Console.ReadLine());
+        int choice = HelperMethods.Parsing(Console.ReadLine());
         if (choice == 1)
         {
-
-            Teacher teacher = service.Login<Teacher>(UsersDB.teachers);
+            Teacher teacher = Service<Teacher>.Login(UsersDB.teachers);
             if (teacher == null)
             {
                 Console.WriteLine("Goodbye");
-
             }
             else
             {
@@ -30,7 +27,7 @@ while (true)
         }
         else if (choice == 2)
         {
-            Student student = service.Login<Student>(UsersDB.students);
+            Student student = Service<Student>.Login(UsersDB.students);
             if (student == null)
             {
                 Console.WriteLine("Goodbye");
@@ -43,12 +40,8 @@ while (true)
             }
             else
             {
-
-                int points = student.ReturnPoints();
-                Console.WriteLine(points);
-                student.Grade = student.ReturnGrade(points);
-                Console.WriteLine($"{student.Name}'s grade is {student.Grade}");
-                student.FinishedQuiz = true;
+                Console.WriteLine(student.ReturnPoints());
+                Console.WriteLine(student.ReturnInfo());
                 Console.WriteLine("Press enter to log out");
                 Console.ReadLine();
                 continue;

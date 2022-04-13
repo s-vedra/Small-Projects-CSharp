@@ -2,32 +2,9 @@
 
 namespace Services
 {
-    public class Service
+    public static class Service<T> where T : User
     {
-        public int Parsing(string userInput)
-        {
-            while (true)
-            {
-                try
-                {
-                    if (!int.TryParse(userInput, out int input))
-                    {
-                        throw new Exception("Invalid input");
-                    }
-                    else
-                    {
-                        return input;
-                    }
-                }
-                catch (Exception msg)
-                {
-                    Console.WriteLine(msg.Message);
-                    return 0;
-
-                }
-            }
-        }
-        public T Login<T>(List<T> list) where T : User
+        public static T Login(List<T> list) 
         {
             int attempt = 2;
             while (true)

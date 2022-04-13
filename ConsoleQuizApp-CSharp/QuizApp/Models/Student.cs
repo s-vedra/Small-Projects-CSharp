@@ -43,6 +43,8 @@ namespace Models
                 }
 
             }
+            Grade = ReturnGrade(Points);
+            FinishedQuiz = true;
             return Points;
         }
 
