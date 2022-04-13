@@ -26,15 +26,13 @@
             int count = 0;
             foreach (Student student in UsersDB.students)
             {
-
-
                 if (student.Major == name)
                 {
+                    //counter to see how many students are in the major
                     count++;
                     major += student.GetAverageGrade();
 
                 }
-
             }
             if (count == 0)
             {
