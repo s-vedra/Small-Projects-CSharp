@@ -10,11 +10,11 @@ while (true)
         int answer = HelperMethods.Parsing(Console.ReadLine());
         if (answer == 1)
         {
-            Services<Teacher>.TeacherLogin();
+            TeacherService.TeacherLogin();
         }
         else if (answer == 2)
-        { 
-            Services<Student>.StudentLogin();
+        {
+            StudentService.StudentLogin();
         } else if (answer == 3)
         {
             Console.Clear();
