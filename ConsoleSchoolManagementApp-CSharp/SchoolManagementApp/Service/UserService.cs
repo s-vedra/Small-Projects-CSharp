@@ -1,11 +1,9 @@
-﻿using Service;
-
-namespace Models
+﻿namespace Models
 {
-    public static class UserService<T>  where T : User
+    public static class UserService<T> where T : User
     {
-        
-        public static T Login(List<T> users) 
+
+        public static T Login(List<T> users)
         {
             int attempt = 3;
             while (true)
@@ -14,28 +12,22 @@ namespace Models
                 {
                     Console.WriteLine("Enter username");
                     string username = Console.ReadLine();
-                    foreach (T user in users)
+                    Console.WriteLine("Enter password");
+                    string password = Console.ReadLine();
+                    T user = users.SingleOrDefault(user => user.CheckUsername(username) && user.CheckPassword(password));
+                    if (attempt == 0)
                     {
-                        if (user.Username == username && !string.IsNullOrEmpty(username))
-                        {
-                            Console.WriteLine("Enter password");
-                            string password = Console.ReadLine();
-                            if (user.Password == password && !string.IsNullOrEmpty(password))
-                            {
-                                return user;
-                            }
-                            else if (attempt == 0)
-                            {
-                                throw new ArgumentException("Too many attempts");
-                            }
-                        }
-                        else if (attempt == 0)
-                        {
-                            throw new ArgumentException("Too many attempts");
-                        }
+                        throw new ArgumentException("Too many attempts");
                     }
-                    attempt--;
-                    throw new Exception("Username or password is incorrect");
+                    else if (user == null)
+                    {
+                        attempt--;
+                        throw new Exception("Username or password is incorrect");
+                    }
+                    else
+                    {
+                        return user;
+                    }
                 }
                 catch (ArgumentException msg)
                 {
