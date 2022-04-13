@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class TeacherService
+    public class TeacherService 
     {
         public static void TeacherLogin()
         {
-            Teacher teacher = Services<Teacher>.Login(UsersDB.teachers);
+            Teacher teacher = UserService<Teacher>.Login(UsersDB.teachers);
             Console.Clear();
             while (true)
             {
@@ -104,5 +104,7 @@ namespace Service
 
             }
         }
+
+      
     }
 }
