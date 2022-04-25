@@ -13,32 +13,23 @@ namespace Services
                 {
                     Console.WriteLine("Enter username");
                     string userUsername = Console.ReadLine();
-                    foreach (T user in list)
+                    Console.WriteLine("Enter password");
+                    string userPassword = Console.ReadLine();
+                    T user = DBServices<T>.ReturnEntity(list, userUsername, userPassword);
+                    if (attempt == 0)
                     {
-                        if (user.CheckUsername(userUsername))
-                        {
-                            Console.WriteLine("Enter password");
-                            string userPassword = Console.ReadLine();
-                            if (user.CheckPassword(userPassword))
-                            {
-                                Console.WriteLine($"Welcome {user.Role} {user.Name}");
-                                return user;
-                            }
-                            else if (attempt == 0)
-                            {
-
-                                throw new ArgumentException("Too many attempts");
-                            }
-                        }
-                        else if (attempt == 0)
-                        {
-
-                            throw new ArgumentException("Too many attempts");
-                        }
-
+                        
+                        throw new ArgumentException("Too many attempts");
                     }
-                    attempt--;
-                    throw new Exception("Username or password incorrect");
+                    else if (user == null)
+                    {
+                        attempt--;
+                        throw new Exception("Username or password incorrect");
+                    }
+                    else
+                    {
+                        return user;
+                    }
                 }
                 catch (ArgumentException msg)
                 {

@@ -1,6 +1,4 @@
-﻿
-using Models;
-using Services;
+﻿using Services;
 
 
 
@@ -13,40 +11,15 @@ while (true)
         int choice = HelperMethods.Parsing(Console.ReadLine());
         if (choice == 1)
         {
-            Teacher teacher = Service<Teacher>.Login(UsersDB.teachers);
-            if (teacher == null)
-            {
-                Console.WriteLine("Goodbye");
-            }
-            else
-            {
-                teacher.ReturnStudents(UsersDB.students);
-                Console.ReadLine();
-                continue;
-            }
+            TeacherService.TeacherLogin();
+            continue;
         }
         else if (choice == 2)
         {
-            Student student = Service<Student>.Login(UsersDB.students);
-            if (student == null)
-            {
-                Console.WriteLine("Goodbye");
-            }
-            else if (student.FinishedQuiz)
-            {
-                Console.WriteLine("You already did the test!");
-                Console.ReadLine();
-                continue;
-            }
-            else
-            {
-                Console.WriteLine(student.ReturnPoints());
-                Console.WriteLine(student.ReturnInfo());
-                Console.WriteLine("Press enter to log out");
-                Console.ReadLine();
-                continue;
-            }
-        } else if (choice == 3)
+            StudentService.StudentLogin();
+            continue;
+        }
+        else if (choice == 3)
         {
             Console.WriteLine("Goodbye");
             break;
@@ -62,7 +35,6 @@ while (true)
         Console.ReadLine();
         continue;
     }
-    break;
 }
 
 
