@@ -9,9 +9,7 @@ EmployeeService employeeServices = new EmployeeService();
 employeeServices.AssignStoreToEmployee();
 StoreServices.OnChangePromotion += managerService.GetMessagePromotion;
 StoreServices.OnChangePromotion += customerService.RecieveMessageOnPromotion;
-StoreServices.OnRemove += managerService.GetMessageBought;
 StoreServices.OnAdd += managerService.GetMessageAddProduct;
-StoreServices.OnRemove += managerService.GetMessageRemoveProduct;
 StoreServices.OnChangeEmployee += managerService.GetMessageAddedEmployee;
 
 Store storeJobOffer = StoreServices.JobOffer(StoreServices.GetEmployeesCount(DBUsers.employeeList));
@@ -39,8 +37,11 @@ while (true)
                                 Console.Clear();
                               
                                 employee.WorkingStore.ChangeCurrentPromotion();
-                             
+                                StoreServices.OnRemove += managerService.GetMessageBought;
+                                
                                 customerService.BuyProducts(employee.WorkingStore, employee.WorkingStore.CurrentPromotion);
+                                //need to unsub because the message is shown more than once
+                                StoreServices.OnRemove -= managerService.GetMessageBought;
                                 HelperMethods.MainMenu();
                                 continue;
                             case 2:
@@ -51,8 +52,10 @@ while (true)
                                 continue;
                             case 3:
                                 Console.Clear();
-                                
+                                StoreServices.OnRemove += managerService.GetMessageRemoveProduct;
                                 employee.WorkingStore.RemoveProducts(StoreServices.ReturnProduct);
+                                //need to unsub because the message is shown more than once
+                                StoreServices.OnRemove -= managerService.GetMessageRemoveProduct;
                                 HelperMethods.MainMenu();
                                 continue;
                             case 4:
