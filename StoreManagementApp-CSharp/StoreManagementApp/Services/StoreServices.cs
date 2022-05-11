@@ -1,5 +1,6 @@
 ﻿using Enums;
 using Models;
+using Services.Interfaces;
 
 namespace Services
 {
@@ -16,7 +17,7 @@ namespace Services
         public static event EventHandle OnRemove;
         public static event EventHandleGroupingProducts OnGroupProducts;
         public static event DBServices<Store>.EventHandleGroupingEmployees OnGroupEmployees;
-        private static LoggingServices loggingServices = new LoggingServices();
+        private static ILoggingServices loggingServices = new LoggingServices();
         public static Product ReturnProduct()
         {
             while (true)

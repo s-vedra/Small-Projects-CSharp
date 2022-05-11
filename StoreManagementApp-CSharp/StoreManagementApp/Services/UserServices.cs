@@ -8,7 +8,7 @@ namespace Services
     {
         public delegate void PrintUser(Employee employee);
         public delegate Store ReturnStore(Dictionary<Store, int> group);
-        private LoggingServices loggingServices = new LoggingServices();
+        private ILoggingServices loggingServices = new LoggingServices();
         public Employee Login(PrintUser print)
         {
             while (true)

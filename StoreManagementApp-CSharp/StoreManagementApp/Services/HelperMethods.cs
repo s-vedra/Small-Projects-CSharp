@@ -1,11 +1,12 @@
 ﻿using Enums;
 using Models;
+using Services.Interfaces;
 
 namespace Services
 {
     public static class HelperMethods
     {
-        private static LoggingServices loggingServices = new LoggingServices();
+        private static ILoggingServices loggingServices = new LoggingServices();
         public static int Parsing(this string message)
         {
             while (true)

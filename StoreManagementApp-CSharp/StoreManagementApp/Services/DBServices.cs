@@ -1,4 +1,5 @@
 ﻿using Models;
+using Services.Interfaces;
 
 namespace Services
 {
@@ -6,7 +7,7 @@ namespace Services
     {
         public delegate void PrintMultpleHandler(List<T> entities);
         public delegate void EventHandleGroupingEmployees(Dictionary<T, int> grouped);
-        private static LoggingServices loggingServices = new LoggingServices();
+        private static ILoggingServices loggingServices = new LoggingServices();
         public static int ReturnId(List<T> entities)
         {
             int id = entities.Count + 1;
