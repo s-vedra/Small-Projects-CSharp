@@ -8,7 +8,7 @@ namespace Services
     {
         public delegate void PrintUser(Employee employee);
         public delegate Store ReturnStore(Dictionary<Store, int> group);
-
+        private LoggingServices loggingServices = new LoggingServices();
         public Employee Login(PrintUser print)
         {
             while (true)
@@ -19,7 +19,7 @@ namespace Services
                     string username = HelperMethods.CheckString();
                     Console.Write("Enter password: ");
                     string password = HelperMethods.CheckString();
-                    Employee user = DBUsers.employeeList.SingleOrDefault(user => user.Username == username && user.Password == password);
+                    Employee? user = DBUsers.employeeList.SingleOrDefault(user => user.Username == username && user.Password == password);
                     if (user != null)
                     {
                         print(user);
@@ -27,12 +27,13 @@ namespace Services
                     }
                     else
                     {
-                        throw new Exception("User not found");
+                        throw new Exception($"User entered wrong username or password. Entered text: {username} {password}");
                     }
                 }
                 catch (Exception msg)
                 {
-                    Console.WriteLine(msg.Message);
+                    loggingServices.LogError($"{msg.Message} {msg.StackTrace}");
+                    loggingServices.ReadError();
                     continue;
                 }
             }

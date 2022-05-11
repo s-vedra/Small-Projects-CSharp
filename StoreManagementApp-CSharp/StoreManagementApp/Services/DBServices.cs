@@ -6,7 +6,7 @@ namespace Services
     {
         public delegate void PrintMultpleHandler(List<T> entities);
         public delegate void EventHandleGroupingEmployees(Dictionary<T, int> grouped);
-
+        private static LoggingServices loggingServices = new LoggingServices();
         public static int ReturnId(List<T> entities)
         {
             int id = entities.Count + 1;
@@ -28,7 +28,7 @@ namespace Services
                 {
                     PrintMultiple(entities, (entities) => entities.ForEach(entity => Console.WriteLine($"{entity.Id} {entity.GetInfo()}")));
                     int answer = HelperMethods.CheckString().Parsing();
-                    T entity = entities.SingleOrDefault(entity => entity.Id == answer);
+                    T? entity = entities.SingleOrDefault(entity => entity.Id == answer);
                     if (entity == null)
                     {
                         throw new Exception("Not found, try again");
@@ -37,7 +37,8 @@ namespace Services
                 }
                 catch (Exception msg)
                 {
-                    Console.WriteLine(msg.Message);
+                    loggingServices.LogError($"{msg.Message} {msg.StackTrace}");
+                    loggingServices.ReadError();
                     continue;
                 }
             }

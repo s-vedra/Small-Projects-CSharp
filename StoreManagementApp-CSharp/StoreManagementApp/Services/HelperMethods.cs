@@ -5,6 +5,7 @@ namespace Services
 {
     public static class HelperMethods
     {
+        private static LoggingServices loggingServices = new LoggingServices();
         public static int Parsing(this string message)
         {
             while (true)
@@ -22,7 +23,8 @@ namespace Services
                 }
                 catch (Exception msg)
                 {
-                    Console.WriteLine(msg.Message);
+                    loggingServices.LogError($"{msg.Message} {msg.StackTrace}");
+                    loggingServices.ReadError();
                     return 0;
                 }
             }
@@ -34,7 +36,7 @@ namespace Services
             {
                 try
                 {
-                    string message = Console.ReadLine();
+                    string? message = Console.ReadLine();
                     if (!string.IsNullOrEmpty(message))
                     {
                         return message;
@@ -46,7 +48,8 @@ namespace Services
                 }
                 catch (Exception msg)
                 {
-                    Console.WriteLine(msg.Message);
+                    loggingServices.LogError($"{msg.Message} {msg.StackTrace}");
+                    loggingServices.ReadError();
                     continue;
                 }
             }

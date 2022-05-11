@@ -2,6 +2,7 @@
 using Models;
 using Services;
 
+
 ManagerServices managerService = new ManagerServices();
 CustomerServices customerService = new CustomerServices();
 UserServices userService = new UserServices();
@@ -13,9 +14,10 @@ StoreServices.OnAdd += managerService.GetMessageAddProduct;
 StoreServices.OnChangeEmployee += managerService.GetMessageAddedEmployee;
 
 Store storeJobOffer = StoreServices.JobOffer(StoreServices.GetEmployeesCount(DBUsers.employeeList));
+
 while (true)
 {
-    Console.WriteLine("1.Login \n2.See Job Offers");
+    Console.WriteLine("1.Login \n2.See Job Offers \n3.Exit");
 
     int answer = HelperMethods.CheckString().Parsing();
     switch (answer)
@@ -46,7 +48,6 @@ while (true)
                                 continue;
                             case 2:
                                 Console.Clear();
-                               
                                 employee.WorkingStore.AddProducts();
                                 HelperMethods.MainMenu();
                                 continue;
@@ -78,7 +79,6 @@ while (true)
                                 StoreServices.OnGroupEmployees += managerService.GetMessageForEmployeeCount;
                                 StoreServices.GetEmployeesCount(DBUsers.employeeList);
                                 HelperMethods.MainMenu();
-                                //Console.Clear();
                                 continue;
                             case 2:
                                 Console.Clear();
@@ -104,21 +104,33 @@ while (true)
             }
             else
             {
-                Console.WriteLine("1.Accept Job Offer \n2.Go Back");
-                int answerJobOffer = HelperMethods.CheckString().Parsing();
-                switch (answerJobOffer)
+                while (true)
                 {
-                    case 1:
-                        Console.Clear();
+                    Console.WriteLine("1.Accept Job Offer \n2.Go Back");
+                    int answerJobOffer = HelperMethods.CheckString().Parsing();
+                    switch (answerJobOffer)
+                    {
+                        case 1:
+                            Console.Clear();
 
-                        StoreServices.AddNewEmployee(() => userService.AcceptJobOffer(StoreServices.JobOffer));
-                        HelperMethods.MainMenu();
-                        break;
-                    case 2:
-                        break;
+                            StoreServices.AddNewEmployee(() => userService.AcceptJobOffer(StoreServices.JobOffer));
+                            HelperMethods.MainMenu();
+                            break;
+                        case 2:
+                            break;
+                        default:
+                            continue;
+                    }
+                    break;
+
                 }
+                continue;
+
             }
-            continue; 
+        case 3:
+            Console.Clear();
+            Console.WriteLine("Goodbye");
+            break;
         default:
             continue;
     }
