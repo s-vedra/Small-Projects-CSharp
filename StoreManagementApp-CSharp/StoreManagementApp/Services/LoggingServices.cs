@@ -1,6 +1,8 @@
-﻿namespace Services
+﻿using Services.Interfaces;
+
+namespace Services
 {
-    public class LoggingServices
+    public class LoggingServices : ILoggingServices
     {
 
         private string _directoryPath = "../../../Errors";
