@@ -5,8 +5,8 @@ namespace Services
     public class LoggingServices : ILoggingServices
     {
 
-        private string _directoryPath = "../../../Errors";
-        private string _errorFile = "/text.txt";
+        private string _directoryPath = @"..\..\..\Errors";
+        private string _errorFile = @"\text.txt";
         public LoggingServices()
         {
             if (!Directory.Exists(_directoryPath))
