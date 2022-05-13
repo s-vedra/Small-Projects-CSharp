@@ -38,8 +38,7 @@ namespace Services
                 }
                 catch (Exception msg)
                 {
-                    loggingServices.LogError($"{msg.Message} {msg.StackTrace}");
-                    loggingServices.ReadError();
+                    loggingServices.LogError(msg.Message);
                     continue;
                 }
             }

@@ -8,7 +8,6 @@ namespace Services
     {
         public delegate void PrintUser(Employee employee);
         public delegate Store ReturnStore(Dictionary<Store, int> group);
-        private ILoggingServices loggingServices = new LoggingServices();
         public Employee Login(PrintUser print)
         {
             while (true)
@@ -27,13 +26,13 @@ namespace Services
                     }
                     else
                     {
-                        throw new Exception($"User entered wrong username or password. Entered text: {username} {password}");
+                        throw new ExceptionServices($"User entered wrong username or password. Entered text: username: {username} password: {password}");
+
                     }
                 }
-                catch (Exception msg)
+                catch (ExceptionServices)
                 {
-                    loggingServices.LogError($"{msg.Message} {msg.StackTrace}");
-                    loggingServices.ReadError();
+                    Console.WriteLine("Wrong username or password");
                     continue;
                 }
             }
@@ -42,32 +41,20 @@ namespace Services
 
         public Employee AcceptJobOffer(ReturnStore storeJobOffer)
         {
-            while (true)
+
+            Console.Write("Enter username: ");
+            string username = HelperMethods.CheckString();
+            Console.Write("Enter password: ");
+            string password = HelperMethods.CheckString();
+
+            Role role = Role.Salesman;
+            Store store = storeJobOffer(StoreServices.GetEmployeesCount(DBUsers.employeeList));
+
+            int id = DBServices<Employee>.ReturnId(DBUsers.employeeList);
+            return new Employee(id, role, username, password)
             {
-                try
-                {
-                    Console.Write("Enter username: ");
-                    string username = HelperMethods.CheckString();
-                    Console.Write("Enter password: ");
-                    string password = HelperMethods.CheckString();
-
-                    Role role = Role.Salesman;
-                    Store store = storeJobOffer(StoreServices.GetEmployeesCount(DBUsers.employeeList));
-
-                    int id = DBServices<Employee>.ReturnId(DBUsers.employeeList);
-                    return new Employee(id, role, username, password)
-                    {
-                        WorkingStore = store
-                    };
-
-                }
-                catch (Exception msg)
-                {
-                    Console.WriteLine(msg.Message);
-                    continue;
-                }
-
-            }
+                WorkingStore = store
+            };
         }
 
     }

@@ -4,7 +4,7 @@ using Services.Interfaces;
 
 namespace Services
 {
-    public class EmployeeService : IEmployeeServices
+    public class EmployeeServices : IEmployeeServices
     {
         public void AssignStoreToEmployee()
         {

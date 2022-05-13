@@ -6,7 +6,7 @@ namespace Services
 {
     public static class HelperMethods
     {
-        private static ILoggingServices loggingServices = new LoggingServices();
+        //private static ILoggingServices loggingServices = new LoggingServices();
         public static int Parsing(this string message)
         {
             while (true)
@@ -15,17 +15,16 @@ namespace Services
                 {
                     if (!int.TryParse(message, out int num))
                     {
-                        throw new Exception("Bad Request, try again");
+                        throw new ExceptionServices("User entered invalid message type");
                     }
                     else
                     {
                         return num;
                     }
                 }
-                catch (Exception msg)
+                catch (ExceptionServices)
                 {
-                    loggingServices.LogError($"{msg.Message} {msg.StackTrace}");
-                    loggingServices.ReadError();
+                    Console.WriteLine("Bad request, try again");
                     return 0;
                 }
             }
@@ -44,13 +43,12 @@ namespace Services
                     }
                     else
                     {
-                        throw new Exception("Field must not be empty");
+                        throw new ExceptionServices("User left an empty field");
                     }
                 }
-                catch (Exception msg)
+                catch (ExceptionServices)
                 {
-                    loggingServices.LogError($"{msg.Message} {msg.StackTrace}");
-                    loggingServices.ReadError();
+                    Console.WriteLine("Field mustn't be empty");
                     continue;
                 }
             }

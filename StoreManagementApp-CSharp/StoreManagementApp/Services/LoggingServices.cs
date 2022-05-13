@@ -27,18 +27,5 @@ namespace Services
                 writer.WriteLine(message);
             }
         }
-
-        public void ReadError()
-        {
-            string? lastLine = null;
-            using (StreamReader reader = new StreamReader(_directoryPath + _errorFile))
-            {
-                while (!reader.EndOfStream)
-                {
-                    lastLine = reader.ReadLine();
-                }
-                Console.WriteLine(lastLine);
-            }
-        }
     }
 }

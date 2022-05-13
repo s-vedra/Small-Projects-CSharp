@@ -17,7 +17,7 @@ namespace Services
         public static event EventHandle OnRemove;
         public static event EventHandleGroupingProducts OnGroupProducts;
         public static event DBServices<Store>.EventHandleGroupingEmployees OnGroupEmployees;
-        private static ILoggingServices loggingServices = new LoggingServices();
+
         public static Product ReturnProduct()
         {
             while (true)
@@ -29,7 +29,7 @@ namespace Services
                     int product = HelperMethods.CheckString().Parsing();
                     if (product == 0 || product > 7)
                     {
-                        throw new Exception("Bad Request, please enter product ID");
+                        throw new ExceptionServices($"User entered {product} for product ID");
                     }
                     else
                     {
@@ -37,10 +37,9 @@ namespace Services
                         return prod;
                     }
                 }
-                catch (Exception msg)
+                catch (ExceptionServices)
                 {
-                    loggingServices.LogError($"{msg.Message} {msg.StackTrace}");
-                    loggingServices.ReadError();
+                    Console.WriteLine("Bad Request, please enter product ID");
                     continue;
                 }
             }

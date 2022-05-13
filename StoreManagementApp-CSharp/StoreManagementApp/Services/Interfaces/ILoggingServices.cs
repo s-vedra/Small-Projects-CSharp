@@ -9,6 +9,5 @@ namespace Services.Interfaces
     public interface ILoggingServices
     {
         void LogError(string message);
-        void ReadError();
     }
 }

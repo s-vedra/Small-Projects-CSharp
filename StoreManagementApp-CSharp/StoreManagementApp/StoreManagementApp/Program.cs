@@ -6,7 +6,7 @@ using Services;
 ManagerServices managerService = new ManagerServices();
 CustomerServices customerService = new CustomerServices();
 UserServices userService = new UserServices();
-EmployeeService employeeServices = new EmployeeService();
+EmployeeServices employeeServices = new EmployeeServices();
 employeeServices.AssignStoreToEmployee();
 StoreServices.OnChangePromotion += managerService.GetMessagePromotion;
 StoreServices.OnChangePromotion += customerService.RecieveMessageOnPromotion;
